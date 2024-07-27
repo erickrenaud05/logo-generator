@@ -7,14 +7,10 @@ var svgData = `<svg version="1.1" width="300" height="200" xmlns="http://www.w3.
 
 
 const validateColor = function(colorName){
-    if(!isNaN(colorName)){
-        colorName = '#' + colorName;
-    }
-
     try{
         const thisColor = color(colorName);
     } catch(err){
-        console.log('\nColor invalid, please check spelling.');
+        console.log('\nColor invalid, please check spelling. If using hexadecimal, please use # infront of value.');
         return false;
     }
     return true;
