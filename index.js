@@ -70,7 +70,7 @@ inquirer
         svgData +=  `\n    <text fill="${answer.textColor}" x="150" y="125" font-size="60" text-anchor="middle">${answer.text}</text>\n</svg>`;
 
         fs.writeFile('./logo.svg', svgData, (err) => {
-                    err ? console.error(err) : console.log('SVG CREATED!')
+                    err ? console.error(err) : console.log('Generated logo.svg')
                 });
     })
 
