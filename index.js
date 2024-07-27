@@ -55,15 +55,18 @@ inquirer
     .then((answer) => {
         if(answer.shape === 'Circle') {
             var myShape = new Circle('circle', answer.shapeColor);
+            var fontSize = 60;
         } else if(answer.shape === 'Triangle') {
             var myShape = new Triangle('polygon', answer.shapeColor);
+            var fontSize = 50;
         } else if(answer.shape === 'Square') {
             var myShape = new Square('rect', answer.shapeColor);
+            var fontSize = 60;
         }
 
         svgData += `    ${myShape.render()}`;
         
-        svgData +=  `\n    <text fill="${answer.textColor}" x="150" y="125" font-size="60" text-anchor="middle">${answer.text}</text>\n</svg>`;
+        svgData +=  `\n    <text fill="${answer.textColor}" x="150" y="125" font-size="${fontSize}" text-anchor="middle">${answer.text}</text>\n</svg>`;
 
         fs.writeFile('./logo.svg', svgData, (err) => {
                     err ? console.error(err) : console.log('Generated logo.svg')
