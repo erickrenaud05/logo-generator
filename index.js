@@ -2,17 +2,12 @@ const { Shape, Square, Circle, Triangle } = require('./lib/shapes');
 const fs = require('fs');
 const inquirer = require('inquirer');
 const color = require('color');
-// const square = new Square('rect', 'black', '40%', '40%');
-
-// const svgData = `<svg version="1.1"
-//      width="300" height="200"
-//      xmlns="http://www.w3.org/2000/svg">
-//         <${square.shape} width="${square.width}" height="${square.height}" fill="${square.fill}" />
-// </svg>`
 
 // fs.writeFile('./examples/test.svg', svgData, (err) => {
 //         err ? console.error(err) : console.log('SVG CREATED!')
 //     })
+
+var svgData = `<svg version="1.1" width="300" height="200" xmlns="http://www.w3.org/2000/svg">\n`
 
 
 const validateColor = function(colorName){
@@ -65,5 +60,21 @@ const questions = [
 
 inquirer
     .prompt(questions)
+    .then((answer) => {
+        if(answer.shape === 'Circle') {
+            var myShape = new Circle('circle', answer.shapeColor);
+        } else if(answer.shape === 'Triangle') {
+            var myShape = new Triangle('polygon', answer.shapeColor);
+        } else if(answer.shape === 'Square') {
+            var myShape = new Square('rect', answer.shapeColor);
+        }
 
+        svgData += `    ${myShape.render()}`;
+        
+        svgData +=  `\n    <text fill="${answer.textColor}" x="150" y="125" font-size="60" text-anchor="middle">${answer.text}</text>\n</svg>`;
+
+        fs.writeFile('./examples/test.svg', svgData, (err) => {
+                    err ? console.error(err) : console.log('SVG CREATED!')
+                });
+    })
 
